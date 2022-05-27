@@ -22,4 +22,18 @@ router.get('/', (req, res) => {
         });
 });
 
+router.get('/login', (req, res) => {
+    //masde so if user is logged in already its gunna redirect to the homepage
+    if (req.session.loggedIn) {
+        res.redirect('/');
+        return;
+    }
+
+    res.render('login');
+});
+
+
+
+
+
 module.exports = router; 
