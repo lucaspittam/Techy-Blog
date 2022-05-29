@@ -21,5 +21,12 @@ async function newFormHandler(event) {
         alert(response.statusText);
     }
 }
+function showNewPost() {
+    const newPostForm = document.querySelector("#create-new-post");
+    newPostForm.style.display = "block";
+    const newPostBtn = document.querySelector("#new-post-btn");
+    newPostBtn.style.display = "none";
+}
 
 document.querySelector('.new-post-form').addEventListener('submit', newFormHandler);
+document.querySelector('#new-post-btn').addEventListener('click', showNewPost);

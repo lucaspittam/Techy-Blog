@@ -2,9 +2,10 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const {Post, User, Comment} = require('../models');
 
-//Route to  homepage
+//route for homepage
 router.get('/', (req, res) => {
     console.log(req.session);
+    console.log(req.session.username);
     Post.findAll({
         attributes: ['id', 'title', 'content', 'created_at'],
         include: [
@@ -18,7 +19,8 @@ router.get('/', (req, res) => {
             const posts = dbPostData.map(post => post.get({plain: true}));
             res.render('homepage', {
                 posts,
-                loggedIn: req.session.loggedIn
+                loggedIn: req.session.loggedIn,
+                username: req.session.username
             });
         })
         .catch(err => {
@@ -27,7 +29,7 @@ router.get('/', (req, res) => {
         });
 });
 
-//Route to make login/signup page
+//route to render the login page
 router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
         res.redirect('/');
@@ -37,7 +39,17 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
-//Route to individual post
+//route for signup page
+router.get('/signup', (req, res) => {
+    if (req.session.loggedIn) {
+        res.redirect('/');
+        return;
+    }
+
+    res.render('signup');
+});
+
+//route for individual post
 router.get('/post/:id', (req, res) => {
     Post.findOne({
         where: {
@@ -69,12 +81,12 @@ router.get('/post/:id', (req, res) => {
                 res.status(404).json({message: 'No post found with this id'});
                 return;
             }
+            //serialize
             const post = dbPostData.get({plain: true});
-
-            //Data to html page
             res.render('single-post', {
                 post,
-                loggedIn: req.session.loggedIn
+                loggedIn: req.session.loggedIn,
+                username: req.session.username
             });
         })
         .catch(err => {
