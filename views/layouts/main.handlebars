@@ -1,5 +1,3 @@
-
-   
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,12 +12,13 @@
   <div class="wrapper">
     <header>
       <h1>
-        <a href="/">Techy blog</a>
+        <a href="/"> Techy blog</a>
       </h1>
       <nav>
           <a href="/">home</a>
-          <a href="">dashboard</a>
+
           {{#if loggedIn}}
+          <a href="/dashboard">dashboard</a>
           <button id="logout" class="btn-no-style">logout</button>
           {{else}}
           <a href="/login">login</a>
@@ -31,7 +30,7 @@
       {{{ body }}}
     </main>
     <footer>
-      Thanks for visiting!
+      Thanks for Stopping Bye!
     </footer>
   </div>
 
