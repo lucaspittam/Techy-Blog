@@ -106,3 +106,5 @@ dist
 .DS_store
 
 
+.env 
+dotenv
