@@ -11,10 +11,10 @@ require('dotenv').config();
 
 //cookie timeout is 1 hour
 const sess = {
-    secret: process.env.DB_SECRET,
+    secret: 'process.env.DB_SECRET',
     cookie: {maxAge: 3600000},
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: new SequelizeStore({
         db: sequelize
     })
